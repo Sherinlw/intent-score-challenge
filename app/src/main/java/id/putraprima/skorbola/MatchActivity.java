@@ -31,6 +31,7 @@ public class MatchActivity extends AppCompatActivity{
     String awayTeam;
     String returnNameHome;
     String returnNameAway;
+    String result, message, scorerName;
     int scoreHome = 0;
     int scoreAway = 0;
 
@@ -112,12 +113,31 @@ public class MatchActivity extends AppCompatActivity{
     }
     //cek hasil
     public void resultHandler(View view){
+        if (scoreHome > scoreAway){
+            result = String.valueOf(scoreHome) + " - " + String.valueOf(scoreAway);
+            message = homeTeam + " adalah Pemenang";
+            scorerName = homeScoreName.getText().toString();
+        } else if(scoreHome < scoreAway){
+            result = String.valueOf(scoreHome) + " - " + String.valueOf(scoreAway);
+            message = awayTeam + " adalah Pemenang";
+            scorerName = awayScoreName.getText().toString();
+        } else {
+            result = String.valueOf(scoreHome) + " - " + String.valueOf(scoreAway);
+            message = "DRAW";
+            scorerName = "";
+        }
         Intent intent = new Intent(this, ResultActivity.class);
-        intent.putExtra("homeScore", scoreHome);
-        intent.putExtra("awayScore", scoreAway);
-        intent.putExtra("homeName", homeTeam);
-        intent.putExtra("awayName", awayTeam);
-
+        intent.putExtra("result", result);
+        intent.putExtra("messages", message);
+        intent.putExtra("scorer", scorerName);
         startActivity(intent);
     }
+//        Intent intent = new Intent(this, ResultActivity.class);
+//        intent.putExtra("homeScore", scoreHome);
+//        intent.putExtra("awayScore", scoreAway);
+//        intent.putExtra("homeName", homeTeam);
+//        intent.putExtra("awayName", awayTeam);
+//
+//        startActivity(intent);
+
 }
