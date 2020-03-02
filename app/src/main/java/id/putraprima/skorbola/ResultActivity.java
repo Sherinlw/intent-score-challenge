@@ -12,26 +12,25 @@ public class ResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        TextView resultText, messageText, scorerText;
+        String result, messages, scorer;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        result = findViewById(R.id.result);
-        winner = findViewById(R.id.winner);
+        resultText = findViewById(R.id.result);
+        messageText = findViewById(R.id.winner);
+        scorerText = findViewById(R.id.resultName);
 
-        Bundle extras = getIntent().getExtras();
-        int homeResult = extras.getInt("homeScore");
-        int awayResult = extras.getInt("awayScore");
-        String homeName = extras.getString("homeName");
-        String awayName = extras.getString("awayName");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            result = bundle.getString("result");
+            messages = bundle.getString("messages");
+            scorer = bundle.getString("scorer");
 
-        if(extras != null ){
-            result.setText("Score Akhir : "+String.valueOf(homeResult) + " - " + String.valueOf(awayResult));
-            if(homeResult > awayResult){
-                winner.setText("Tim "+homeName + " adalah pemenang!");
-            }else if(awayResult > homeResult){
-                winner.setText("Tim "+awayName + " adalah pemenang!");
-            }else{
-                winner.setText("Tim seimbang!");
-            }
+            scorerText.setText(scorer);
+            messageText.setText(messages);
+            resultText.setText(result);
+            System.out.println(scorer);
         }
     }
 }

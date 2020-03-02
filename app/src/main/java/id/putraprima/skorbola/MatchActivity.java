@@ -21,8 +21,8 @@ public class MatchActivity extends AppCompatActivity{
     TextView homeScore;
     ImageView homeLogo;
     ImageView awayLogo;
-    EditText homeScoreName;
-    EditText awayScoreName;
+    TextView homeScoreName;
+    TextView awayScoreName;
     Uri uri1;
     Uri uri2;
     Bitmap bitmap1;
@@ -46,6 +46,9 @@ public class MatchActivity extends AppCompatActivity{
         awayLogo = findViewById(R.id.away_logo);
         awayScore = findViewById(R.id.score_away);
         homeScore = findViewById(R.id.score_home);
+
+        homeScoreName = findViewById(R.id.nameHome);
+        awayScoreName = findViewById(R.id.nameAway);
 
         //TODO
         //1.Menampilkan detail match sesuai data dari main activity
@@ -95,19 +98,20 @@ public class MatchActivity extends AppCompatActivity{
                 homeScore.setText(String.valueOf(scoreHome));
                 returnNameHome = data.getStringExtra("inputScore");
 
-                String goalers = homeScoreName.getText().toString();
-                homeScoreName.setText(String.valueOf(goalers + " \n "+goalers));
+                String pencetakHome = returnNameHome;
+                String pencetakBaruHome = homeScoreName.getText().toString();
+                homeScoreName.setText(String.valueOf(pencetakBaruHome + " \n "+pencetakHome));
 
             }
         }else if (requestCode == 2){
             if (resultCode == RESULT_OK) {
                 scoreAway = scoreAway + 1;
                 awayScore.setText(String.valueOf(scoreAway));
-                returnNameAway = data.getStringExtra("scorerName");
+                returnNameAway = data.getStringExtra("inputScore");
 
-                String goalers1 = returnNameAway;
-                String goalers2 = awayScoreName.getText().toString();
-                awayScoreName.setText(String.valueOf(goalers1 + " \n " + goalers2));
+                String pencetakAway = returnNameAway;
+                String pencetakBaruAway = awayScoreName.getText().toString();
+                awayScoreName.setText(String.valueOf(pencetakBaruAway + " \n " + pencetakAway));
             }
         }
     }
@@ -115,15 +119,15 @@ public class MatchActivity extends AppCompatActivity{
     public void resultHandler(View view){
         if (scoreHome > scoreAway){
             result = String.valueOf(scoreHome) + " - " + String.valueOf(scoreAway);
-            message = homeTeam + " adalah Pemenang";
+            message = homeTeam + " adalah pemenang";
             scorerName = homeScoreName.getText().toString();
         } else if(scoreHome < scoreAway){
             result = String.valueOf(scoreHome) + " - " + String.valueOf(scoreAway);
-            message = awayTeam + " adalah Pemenang";
+            message = awayTeam + " adalah pemenang";
             scorerName = awayScoreName.getText().toString();
         } else {
             result = String.valueOf(scoreHome) + " - " + String.valueOf(scoreAway);
-            message = "DRAW";
+            message = "Tim Seimbang";
             scorerName = "";
         }
         Intent intent = new Intent(this, ResultActivity.class);
